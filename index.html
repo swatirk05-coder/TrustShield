@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustShield General Insurance — Cover that shows up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#6B0F2B;
+    --maroon-deep:#440A1C;
+    --maroon-soft:#8A2A44;
+    --gold:#C89B3C;
+    --gold-soft:#E4C77E;
+    --cream:#FBF7F1;
+    --cream-alt:#F2E9DA;
+    --ink:#221812;
+    --slate:#5C5147;
+    --green:#2F6B4F;
+    --line:rgba(34,24,18,0.14);
+    --line-on-dark:rgba(251,247,241,0.22);
+    --shadow:0 20px 45px -22px rgba(34,24,18,0.35);
+    --radius:18px;
+    --display:'Fraunces', serif;
+    --body:'IBM Plex Sans', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--cream);
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  h1,h2,h3,h4{font-family:var(--display); margin:0; font-weight:600; letter-spacing:-0.01em;}
+  p{margin:0; line-height:1.6;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  :focus-visible{outline:3px solid var(--gold); outline-offset:3px;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--maroon);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:16px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--maroon); display:inline-block;}
+  .eyebrow.on-dark{color:var(--gold-soft);}
+  .eyebrow.on-dark::before{background:var(--gold-soft);}
+
+  /* ---------- Perforated stub dividers (signature) ---------- */
+  .stub{
+    position:relative;
+    height:26px;
+    width:100%;
+    z-index:2;
+  }
+  .stub svg{width:100%; height:100%; display:block;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(251,247,241,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:padding .25s ease;
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:18px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    transition:padding .25s ease;
+  }
+  .nav.shrink .nav-inner{padding:11px 28px;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand-mark{width:34px; height:34px; flex:none;}
+  .brand-text{display:flex; flex-direction:column; line-height:1.05;}
+  .brand-text b{font-family:var(--display); font-size:17px; font-weight:700; color:var(--maroon);}
+  .brand-text span{font-family:var(--mono); font-size:10px; letter-spacing:0.1em; color:var(--slate); text-transform:uppercase;}
+  .nav-links{display:flex; gap:30px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-size:14.5px; font-weight:500; color:var(--ink); position:relative; padding:4px 0;}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--maroon); transition:width .2s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex; align-items:center; gap:14px;}
+  .btn{
+    font-family:var(--body); font-weight:600; font-size:14px;
+    border-radius:100px; padding:11px 22px; border:1px solid transparent;
+    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--maroon); color:var(--cream); box-shadow:0 10px 24px -10px rgba(107,15,43,0.6);}
+  .btn-primary:hover{background:var(--maroon-deep);}
+  .btn-ghost{background:transparent; color:var(--maroon); border-color:var(--maroon);}
+  .btn-ghost:hover{background:var(--maroon); color:var(--cream);}
+  .btn-gold{background:var(--gold); color:var(--maroon-deep); box-shadow:0 10px 24px -10px rgba(200,155,60,0.6);}
+  .btn-line{background:transparent;color:var(--cream); border-color:var(--line-on-dark);}
+  .btn-line:hover{background:rgba(251,247,241,0.1);}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-toggle span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; transition:.2s;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    background:radial-gradient(1200px 500px at 85% -10%, #7c1734 0%, var(--maroon) 45%, var(--maroon-deep) 100%);
+    color:var(--cream);
+    padding:76px 0 0;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    padding-bottom:70px;
+  }
+  .hero h1{
+    font-size:clamp(36px, 4.6vw, 58px);
+    line-height:1.04;
+    color:var(--cream);
+    max-width:11.5ch;
+  }
+  .hero h1 em{font-style:italic; color:var(--gold-soft);}
+  .hero-sub{
+    margin-top:22px; font-size:17px; color:rgba(251,247,241,0.82); max-width:46ch; line-height:1.65;
+  }
+  .hero-actions{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .hero-stats{display:flex; gap:34px; margin-top:52px; flex-wrap:wrap;}
+  .hero-stats div b{font-family:var(--mono); font-size:24px; display:block; color:var(--gold-soft);}
+  .hero-stats div span{font-size:12.5px; color:rgba(251,247,241,0.68);}
+
+  /* Quote widget - certificate styled */
+  .quote-card{
+    background:var(--cream);
+    border-radius:20px;
+    padding:26px 26px 24px;
+    color:var(--ink);
+    box-shadow:0 40px 70px -30px rgba(0,0,0,0.55);
+    position:relative;
+    border:1px solid rgba(255,255,255,0.4);
+  }
+  .quote-card::before{
+    content:'';
+    position:absolute; inset:8px;
+    border:1.5px dashed rgba(107,15,43,0.35);
+    border-radius:14px;
+    pointer-events:none;
+  }
+  .quote-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;}
+  .quote-head h3{font-size:19px;}
+  .quote-head span{font-family:var(--mono); font-size:11px; color:var(--slate); letter-spacing:.06em;}
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;}
+  .chip{
+    border:1px solid var(--line); background:transparent; border-radius:100px;
+    padding:8px 14px; font-size:13px; font-weight:600; cursor:pointer; color:var(--slate);
+    transition:all .15s ease;
+  }
+  .chip.active{background:var(--maroon); color:var(--cream); border-color:var(--maroon);}
+  .field-label{display:flex; justify-content:space-between; font-size:12.5px; color:var(--slate); margin-bottom:8px; font-family:var(--mono);}
+  .field-label b{color:var(--ink); font-family:var(--mono);}
+  input[type=range]{
+    width:100%; -webkit-appearance:none; appearance:none; height:4px; border-radius:4px;
+    background:var(--line-on-dark, var(--line)); background:var(--line); margin-bottom:22px; cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:18px; height:18px; border-radius:50%;
+    background:var(--maroon); border:3px solid var(--cream); box-shadow:0 0 0 1px var(--maroon); cursor:pointer;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:18px; height:18px; border-radius:50%; background:var(--maroon); border:3px solid var(--cream); box-shadow:0 0 0 1px var(--maroon); cursor:pointer;
+  }
+  .quote-result{
+    border-top:1px dashed var(--line); padding-top:16px; margin-top:4px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+  }
+  .quote-result .lbl{font-size:12px; color:var(--slate); font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em;}
+  .quote-result .amt{font-family:var(--mono); font-size:30px; font-weight:600; color:var(--maroon);}
+  .quote-result .amt span{font-size:14px; color:var(--slate); font-weight:400;}
+  .quote-foot{margin-top:18px; display:flex; gap:10px;}
+  .quote-foot .btn{flex:1; justify-content:center;}
+
+  /* ---------- TRUST BAR ---------- */
+  .trustbar{
+    background:var(--maroon-deep); color:var(--cream);
+    padding:26px 0;
+  }
+  .trustbar .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;}
+  .trust-item{display:flex; align-items:center; gap:12px;}
+  .trust-item svg{width:26px; height:26px; flex:none; color:var(--gold-soft);}
+  .trust-item b{display:block; font-family:var(--mono); font-size:17px;}
+  .trust-item span{font-size:12px; color:rgba(251,247,241,0.65);}
+
+  /* ---------- SECTION generic ---------- */
+  section{padding:96px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,42px); line-height:1.1;}
+  .section-head p{margin-top:16px; font-size:16px; color:var(--slate); max-width:52ch;}
+
+  /* ---------- PRODUCTS ---------- */
+  .product-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .product-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; display:flex; flex-direction:column; gap:16px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .product-card:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:transparent;}
+  .product-icon{
+    width:48px; height:48px; border-radius:12px; background:var(--cream-alt);
+    display:flex; align-items:center; justify-content:center; color:var(--maroon);
+  }
+  .product-icon svg{width:24px; height:24px;}
+  .product-card h3{font-size:20px;}
+  .product-card p.desc{color:var(--slate); font-size:14.5px;}
+  .product-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;}
+  .product-list li{font-size:13.5px; color:var(--ink); display:flex; gap:8px; align-items:flex-start;}
+  .product-list li::before{content:'✓'; color:var(--green); font-weight:700; flex:none;}
+  .product-foot{margin-top:auto; display:flex; align-items:center; justify-content:space-between; padding-top:12px; border-top:1px solid var(--line);}
+  .product-foot .price{font-family:var(--mono); font-size:13px; color:var(--slate);}
+  .product-foot .price b{color:var(--maroon); font-size:15px;}
+  .product-foot a{font-size:13.5px; font-weight:600; color:var(--maroon); text-decoration:none; display:flex; align-items:center; gap:5px;}
+
+  /* ---------- JOURNEY ---------- */
+  .journey{background:var(--cream-alt);}
+  .journey-track{display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative;}
+  .journey-track::before{
+    content:''; position:absolute; top:23px; left:5%; right:5%; height:1px;
+    background:repeating-linear-gradient(90deg, var(--maroon) 0 8px, transparent 8px 16px);
+  }
+  .journey-step{position:relative; padding-right:16px;}
+  .journey-num{
+    width:46px; height:46px; border-radius:50%; background:var(--cream); border:1.5px solid var(--maroon);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:600; color:var(--maroon);
+    position:relative; z-index:1; margin-bottom:20px; font-size:14px;
+  }
+  .journey-step h4{font-size:16.5px; margin-bottom:8px;}
+  .journey-step p{font-size:13.5px; color:var(--slate); line-height:1.55;}
+
+  /* ---------- CLAIMS ---------- */
+  .claims-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+  .claims-steps{display:flex; flex-direction:column; gap:0;}
+  .claim-mini{display:flex; gap:16px; padding:18px 0; border-bottom:1px solid var(--line);}
+  .claim-mini:last-child{border-bottom:none;}
+  .claim-mini .idx{font-family:var(--mono); color:var(--maroon); font-weight:600; font-size:14px; flex:none; width:26px;}
+  .claim-mini h4{font-size:15.5px; margin-bottom:4px;}
+  .claim-mini p{font-size:13.5px; color:var(--slate);}
+
+  .tracker{
+    background:var(--ink); color:var(--cream); border-radius:20px; padding:30px;
+    position:relative; overflow:hidden;
+  }
+  .tracker::after{
+    content:''; position:absolute; top:-40%; right:-20%; width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(200,155,60,0.25), transparent 70%);
+  }
+  .tracker-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; position:relative;}
+  .tracker-head h3{color:var(--cream); font-size:18px;}
+  .tracker-form{display:flex; gap:10px; margin-bottom:22px; position:relative;}
+  .tracker-form input{
+    flex:1; background:rgba(251,247,241,0.08); border:1px solid var(--line-on-dark); color:var(--cream);
+    border-radius:10px; padding:12px 14px; font-family:var(--mono); font-size:13.5px;
+  }
+  .tracker-form input::placeholder{color:rgba(251,247,241,0.4);}
+  .tracker-form button{
+    background:var(--gold); color:var(--maroon-deep); border:none; border-radius:10px; padding:0 20px; font-weight:700; cursor:pointer; font-size:13.5px;
+  }
+  .stepper{display:flex; flex-direction:column; gap:0; position:relative;}
+  .step-row{display:flex; gap:14px; padding-bottom:22px; position:relative;}
+  .step-row:last-child{padding-bottom:0;}
+  .step-row::before{
+    content:''; position:absolute; left:9px; top:22px; bottom:0; width:1px; background:var(--line-on-dark);
+  }
+  .step-row:last-child::before{display:none;}
+  .step-dot{
+    width:20px; height:20px; border-radius:50%; flex:none; border:2px solid var(--line-on-dark);
+    display:flex; align-items:center; justify-content:center; z-index:1; background:var(--ink);
+  }
+  .step-row.done .step-dot{background:var(--green); border-color:var(--green);}
+  .step-row.current .step-dot{background:var(--gold); border-color:var(--gold);}
+  .step-row.done .step-dot::after{content:'✓'; font-size:11px; color:#fff;}
+  .step-body h5{font-size:14px; color:var(--cream); margin-bottom:3px; font-weight:600;}
+  .step-body span{font-size:12px; color:rgba(251,247,241,0.5); font-family:var(--mono);}
+  .tracker-empty{font-size:13.5px; color:rgba(251,247,241,0.55); padding:10px 0;}
+
+  .why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .why-card{padding:26px 22px; border-radius:var(--radius); background:var(--cream-alt);}
+  .why-card svg{width:28px; height:28px; color:var(--maroon); margin-bottom:16px;}
+  .why-card h4{font-size:16px; margin-bottom:8px;}
+  .why-card p{font-size:13.5px; color:var(--slate);}
+
+  .seal-wrap{position:relative; display:flex; align-items:center; justify-content:center; padding:40px 0;}
+  .seal{
+    width:190px; height:190px; border-radius:50%;
+    border:2px solid var(--gold-soft);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; transform:rotate(-8deg);
+    color:var(--gold-soft);
+  }
+  .seal::before{content:''; position:absolute; inset:10px; border:1px dashed var(--gold-soft); border-radius:50%; opacity:.6;}
+  .seal-center{text-align:center;}
+  .seal-center b{display:block; font-family:var(--display); font-size:22px; font-weight:700; line-height:1.1;}
+  .seal-center span{font-family:var(--mono); font-size:10px; letter-spacing:.1em;}
+
+  .testimonials{background:var(--maroon); color:var(--cream);}
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .test-card{
+    background:rgba(251,247,241,0.06); border:1px solid var(--line-on-dark); border-radius:var(--radius); padding:26px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .test-card .quote-mark{font-family:var(--display); font-size:40px; color:var(--gold-soft); line-height:1; height:28px;}
+  .test-card p.body{font-size:14.5px; line-height:1.6; color:rgba(251,247,241,0.9);}
+  .test-person{display:flex; align-items:center; gap:12px; margin-top:auto;}
+  .avatar{width:38px; height:38px; border-radius:50%; background:var(--gold); color:var(--maroon-deep); display:flex; align-items:center; justify-content:center; font-weight:700; font-family:var(--mono); font-size:13px;}
+  .test-person b{font-size:14px; display:block;}
+  .test-person span{font-size:12px; color:rgba(251,247,241,0.6);}
+
+  .faq-list{max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; padding:22px 0; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:20px; font-family:var(--body);
+  }
+  .faq-q h4{font-size:16px; font-weight:600;}
+  .faq-q .plus{width:22px; height:22px; flex:none; position:relative;}
+  .faq-q .plus::before,.faq-q .plus::after{content:''; position:absolute; background:var(--maroon); transition:transform .25s ease;}
+  .faq-q .plus::before{top:50%; left:0; width:100%; height:2px; transform:translateY(-50%);}
+  .faq-q .plus::after{left:50%; top:0; height:100%; width:2px; transform:translateX(-50%);}
+  .faq-item.open .faq-q .plus::after{transform:translateX(-50%) rotate(90deg); opacity:0;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding-bottom:22px; color:var(--slate); font-size:14.5px; max-width:60ch;}
+
+  .app-cta{
+    background:var(--ink); color:var(--cream); border-radius:26px; margin:0 28px;
+    padding:64px 56px; display:flex; justify-content:space-between; align-items:center; gap:40px;
+    max-width:1124px; margin-left:auto; margin-right:auto;
+  }
+  .app-cta h2{color:var(--cream); font-size:clamp(24px,3vw,34px); max-width:14ch;}
+  .app-cta p{color:rgba(251,247,241,0.65); margin-top:12px; max-width:38ch;}
+  .store-btns{display:flex; gap:12px; margin-top:24px;}
+  .store-btn{
+    border:1px solid var(--line-on-dark); border-radius:12px; padding:10px 18px; display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--cream);
+  }
+  .store-btn span{display:flex; flex-direction:column; line-height:1.1;}
+  .store-btn span small{font-size:10px; color:rgba(251,247,241,0.6);}
+  .store-btn span b{font-size:14px;}
+
+  footer{background:var(--maroon-deep); color:rgba(251,247,241,0.75); padding:70px 0 30px; margin-top:70px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:40px; padding-bottom:50px; border-bottom:1px solid var(--line-on-dark);}
+  .foot-brand p{font-size:13.5px; margin-top:14px; color:rgba(251,247,241,0.55); max-width:34ch;}
+  .foot-col h5{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:16px;}
+  .foot-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .foot-col a{text-decoration:none; font-size:13.5px; color:rgba(251,247,241,0.75);}
+  .foot-col a:hover{color:var(--cream);}
+  .foot-bottom{padding-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:12px; color:rgba(251,247,241,0.5);}
+  .foot-bottom .legal{max-width:70ch; line-height:1.6;}
+
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .journey-track{grid-template-columns:repeat(3,1fr); row-gap:36px;}
+    .journey-track::before{display:none;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .test-grid{grid-template-columns:1fr;}
+    .claims-grid{grid-template-columns:1fr; gap:40px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+    .app-cta{flex-direction:column; text-align:center; padding:44px 28px; margin:0 16px;}
+    .store-btns{justify-content:center;}
+    .product-grid{grid-template-columns:1fr;}
+    .journey-track{grid-template-columns:1fr 1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .trustbar .wrap{gap:18px 30px;}
+    section{padding:64px 0;}
+  }
+</style>
+</head>
+<body>
+
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <path d="M20 2 L36 9 V20 C36 30 29 36 20 38 C11 36 4 30 4 20 V9 Z" fill="#6B0F2B" stroke="#C89B3C" stroke-width="1.5"/>
+        <path d="M20 9 L29 13 V20 C29 26.5 25 30.5 20 32 C15 30.5 11 26.5 11 20 V13 Z" fill="none" stroke="#FBF7F1" stroke-width="1.3"/>
+      </svg>
+      <span class="brand-text"><b>TrustShield</b><span>General Insurance</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#journey">How it works</a></li>
+        <li><a href="#claims">Claims</a></li>
+        <li><a href="#faq">FAQs</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="#claims" class="btn btn-ghost" style="display:none" id="trackLinkDesktop">Track claim</a>
+      <a href="#quote" class="btn btn-primary">Get a quote</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow on-dark">IRDAI Registered · General Insurer</div>
+      <h1>Cover that shows up <em>when you need it,</em> not after.</h1>
+      <p class="hero-sub">Motor, health, travel and home insurance built around one promise: fewer forms to file, faster claims to settle, and a policy you can actually read. Compare, buy and manage everything from one place.</p>
+      <div class="hero-actions">
+        <a href="#quote" class="btn btn-gold">Calculate my premium</a>
+        <a href="#claims" class="btn btn-line">Track a claim</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>98.2%</b><span>Claims settled, FY 2025–26</span></div>
+        <div><b>14,500+</b><span>Cashless network partners</span></div>
+        <div><b>&lt; 48 hrs</b><span>Average claim turnaround</span></div>
+      </div>
+    </div>
+
+    <div class="quote-card reveal" id="quote">
+      <div class="quote-head">
+        <div>
+          <h3>Instant premium estimate</h3>
+          <span>NON-BINDING · UPDATES LIVE</span>
+        </div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B0F2B" stroke-width="1.6"><path d="M12 2 L21 6 V12 C21 17.5 17 21 12 22.5 C7 21 3 17.5 3 12 V6 Z"/><path d="M8.5 12 L11 14.5 L16 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="chip-row" id="typeChips">
+        <button class="chip active" data-type="car">Car</button>
+        <button class="chip" data-type="bike">Bike</button>
+        <button class="chip" data-type="health">Health</button>
+        <button class="chip" data-type="travel">Travel</button>
+        <button class="chip" data-type="home">Home</button>
+      </div>
+
+      <div class="field-label"><span id="sliderLabel">Insured Declared Value</span><b id="sliderValue">₹6,00,000</b></div>
+      <input type="range" id="quoteSlider" min="100000" max="2000000" step="10000" value="600000">
+
+      <div class="field-label"><span>Your age</span><b id="ageValue">32 yrs</b></div>
+      <input type="range" id="ageSlider" min="18" max="65" step="1" value="32">
+
+      <div class="quote-result">
+        <div><div class="lbl">Estimated annual premium</div><div class="amt">₹<span id="premiumOut">4,820</span><span> /year</span></div></div>
+        
+      </div>
+      <div class="quote-foot">
+        
+        <a href="#products" class="btn btn-ghost">Compare plans</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trustbar">
+  <div class="wrap">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 L21 6 V12 C21 17.5 17 21 12 22.5 C7 21 3 17.5 3 12 V6 Z"/></svg>
+      <div><b>42 Lakh+</b><span>Active policyholders</span></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <div><b>24×7</b><span>Claims assistance line</span></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+      <div><b>9,200+</b><span>Network hospitals</span></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h4l2-7 4 14 2-7h4"/></svg>
+      <div><b>11 languages</b><span>Support &amp; documents</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What we cover</div>
+      <h2>One insurer, every policy that actually matters.</h2>
+      <p>Each plan is priced from your real risk profile, not a generic slab. Pick a category to see what's included before you commit to anything.</p>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card reveal">
+        <div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 17h14M5 17a2 2 0 104 0M15 17a2 2 0 104 0M5 17l1.5-6.5A2 2 0 018.4 9h7.2a2 2 0 011.9 1.5L19 17M5 17V13h14v4"/></svg></div>
+        <h3>Car Insurance</h3>
+        <p class="desc">Own-damage and third-party cover with a garage network that doesn't make you pay and wait to be reimbursed.</p>
+        <ul class="product-list">
+          <li>Cashless repairs at 6,800+ garages</li>
+          <li>Zero depreciation add-on available</li>
+          <li>Instant e-policy, no inspection under 5 yrs</li>
+        </ul>
+        <div class="product-foot"><span class="price">From <b>₹2,072</b>/yr</span><a href="#quote">Get quote →</a></div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l3-9h4l3 6h3M9 8h4"/></svg></div>
+        <h3>Bike Insurance</h3>
+        <p class="desc">Third-party and comprehensive plans for scooters and motorcycles, priced by how you actually ride.</p>
+        <ul class="product-list">
+          <li>Roadside assistance across India</li>
+          <li>Engine protect &amp; return-to-invoice add-ons</li>
+          <li>Renew in under 3 minutes</li>
+        </ul>
+        <div class="product-foot"><span class="price">From <b>₹482</b>/yr</span><a href="#quote">Get quote →</a></div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></div>
+        <h3>Health Insurance</h3>
+        <p class="desc">Individual and family floater plans with room-rent flexibility and no sub-limits on room category.</p>
+        <ul class="product-list">
+          <li>9,200+ cashless network hospitals</li>
+          <li>Covers day-care &amp; pre-existing after wait</li>
+          <li>No-claim bonus up to 100% cover</li>
+        </ul>
+        <div class="product-foot"><span class="price">From <b>₹6,240</b>/yr</span><a href="#quote">Get quote →</a></div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12h20M12 2c2.5 2.7 4 6.3 4 10s-1.5 7.3-4 10c-2.5-2.7-4-6.3-4-10s1.5-7.3 4-10z"/></svg></div>
+        <h3>Travel Insurance</h3>
+        <p class="desc">Domestic and international trip cover for delays, medical emergencies, and lost baggage.</p>
+        <ul class="product-list">
+          <li>Cashless hospitalisation abroad</li>
+          <li>Trip delay &amp; missed connection payout</li>
+          <li>Single trip or annual multi-trip plans</li>
+        </ul>
+        <div class="product-foot"><span class="price">From <b>₹319</b>/trip</span><a href="#quote">Get quote →</a></div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l9-7 9 7M5 10v10h14V10M9 20v-6h6v6"/></svg></div>
+        <h3>Home Insurance</h3>
+        <p class="desc">Structure and contents cover against fire, flood, theft and natural disasters — priced by pin code risk.</p>
+        <ul class="product-list">
+          <li>Covers structure + contents together</li>
+          <li>Alternate accommodation during repair</li>
+          <li>Add jewellery &amp; electronics separately</li>
+        </ul>
+        <div class="product-foot"><span class="price">From <b>₹1,150</b>/yr</span><a href="#quote">Get quote →</a></div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18"/></svg></div>
+        <h3>Shop &amp; Business</h3>
+        <p class="desc">Protect inventory, equipment and premises for shops, clinics and small businesses.</p>
+        <ul class="product-list">
+          <li>Stock and fixtures cover in one plan</li>
+          <li>Public liability add-on</li>
+          <li>Business interruption pay-out</li>
+        </ul>
+        <div class="product-foot"><span class="price">From <b>₹3,400</b>/yr</span><a href="#quote">Get quote →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="journey" id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The full journey</div>
+      <h2>Five steps, start to settled.</h2>
+      <p>This is the actual sequence every policy moves through with us — nothing skipped, nothing hidden behind a call centre.</p>
+    </div>
+    <div class="journey-track">
+      <div class="journey-step reveal">
+        <div class="journey-num">01</div>
+        <h4>Discover</h4>
+        <p>Tell us your vehicle, health profile, home or trip details — takes under a minute, no phone number required upfront.</p>
+      </div>
+      <div class="journey-step reveal">
+        <div class="journey-num">02</div>
+        <h4>Compare</h4>
+        <p>See plan tiers side by side with real inclusions and exclusions, not marketing language.</p>
+      </div>
+      <div class="journey-step reveal">
+        <div class="journey-num">03</div>
+        <h4>Buy</h4>
+        <p>Pay, get your e-policy instantly, and a physical copy if you want one mailed to you.</p>
+      </div>
+      <div class="journey-step reveal">
+        <div class="journey-num">04</div>
+        <h4>Manage</h4>
+        <p>Edit nominee details, add riders, or set auto-renewal — all from your dashboard, anytime.</p>
+      </div>
+      <div class="journey-step reveal">
+        <div class="journey-num">05</div>
+        <h4>Claim</h4>
+        <p>File in-app with photos and documents. Track every stage until money reaches your account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="claims">
+  <div class="wrap claims-grid">
+    <div class="reveal">
+      <div class="eyebrow">Claims, without the archaeology</div>
+      <h2 style="font-size:clamp(26px,3vw,36px); margin-bottom:20px;">Filing a claim shouldn't feel like building a legal case.</h2>
+      <p style="color:var(--slate); margin-bottom:30px; max-width:48ch;">Every claim moves through the same four checkpoints. You can see exactly where yours is — no separate call needed to ask "any update?"</p>
+
+      <div class="claims-steps">
+        <div class="claim-mini"><span class="idx">01</span><div><h4>Register</h4><p>Report the incident in-app or by calling our 24×7 line. You get a claim ID immediately.</p></div></div>
+        <div class="claim-mini"><span class="idx">02</span><div><h4>Verify</h4><p>Upload documents and photos. Our surveyor is assigned within 4 working hours.</p></div></div>
+        <div class="claim-mini"><span class="idx">03</span><div><h4>Assess</h4><p>Surveyor inspects (or does it remotely for eligible claims) and files the report.</p></div></div>
+        <div class="claim-mini"><span class="idx">04</span><div><h4>Settle</h4><p>Approved amount is transferred directly to your bank account or the network partner.</p></div></div>
+      </div>
+    </div>
+
+    <div class="tracker reveal">
+      <div class="tracker-head">
+        <h3>Track your claim</h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C89B3C" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <div class="tracker-form">
+        <input type="text" id="claimInput" placeholder="e.g. CLM-2026-48213" maxlength="20">
+        <button id="trackBtn">Track</button>
+      </div>
+      <div id="trackerBody">
+        <p class="tracker-empty">Enter any claim ID above — try your own or a sample like <span style="font-family:var(--mono)">CLM-2026-48213</span> to see live status tracking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why TrustSheild General</div>
+      <h2>The details that show up on your worst day.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4v16h16M8 15l3-3 3 3 5-6"/></svg>
+        <h4>No-claim bonus protection</h4>
+        <p>Make one small claim without losing years of accumulated discount.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        <h4>Auto-renewal, once you opt in</h4>
+        <p>We remind you 15 days early — nothing lapses without your say-so.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 4.5v6c0 5-3.6 8.7-9 9.5-5.4-.8-9-4.5-9-9.5v-6z"/></svg>
+        <h4>In-house surveyors</h4>
+        <p>No outsourced assessors — the people who inspect are ours, so decisions are faster.</p>
+      </div>
+      <div class="why-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h4l2-7 4 14 2-7h4"/></svg>
+        <h4>Plain-language policy wording</h4>
+        <p>Every exclusion is written the way we'd explain it out loud, not in legal shorthand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="testimonials">
+  <div class="wrap">
+    <div style="display:flex; gap:60px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
+      <div class="seal-wrap reveal" style="padding:0;">
+        
+      </div>
+      <div class="reveal" style="flex:1; min-width:260px;">
+        <div class="eyebrow on-dark">Told in their words</div>
+        <h2 style="color:var(--cream); font-size:clamp(24px,3vw,34px);">People remember insurers mostly for how claims go.</h2>
+      </div>
+    </div>
+
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="quote-mark">“</div>
+        <p class="body">My car was towed after an accident on the highway at 11pm. The claim line picked up in under a minute and a garage partner was arranged before I even reached home.</p>
+        <div class="test-person"><div class="avatar">RK</div><div><b>Rahul Kadam</b><span>Pune · Car Insurance</span></div></div>
+      </div>
+      <div class="test-card reveal">
+        <div class="quote-mark">“</div>
+        <p class="body">Cashless hospitalisation for my mother went through without a single rupee out of pocket. The status tracker meant I wasn't calling anyone every two hours.</p>
+        <div class="test-person"><div class="avatar">AS</div><div><b>Anjali Sharma</b><span>Lucknow · Health Insurance</span></div></div>
+      </div>
+      <div class="test-card reveal">
+        <div class="quote-mark">“</div>
+        <p class="body">Lost my bag in transit at Bangkok airport. Filed the claim from the airport itself with photos, and the payout was in my account before my flight back landed.</p>
+        <div class="test-person"><div class="avatar">MV</div><div><b>Meera Varghese</b><span>Kochi · Travel Insurance</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Questions, answered plainly</div>
+      <h2>Before you ask, we probably already have.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-q"><h4>How fast are claims actually settled?</h4><span class="plus"></span></button>
+        <div class="faq-a"><p>Motor claims for damage under ₹50,000 with complete documents are typically settled within 48 hours. Health claims at network hospitals are pre-authorised in 2–4 hours. Larger or contested claims can take longer while a surveyor completes assessment.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><h4>Do I need to pay upfront at a network hospital or garage?</h4><span class="plus"></span></button>
+        <div class="faq-a"><p>No — at any of our 9,200+ network hospitals or 6,800+ garages, eligible treatment or repair costs are settled directly with the partner. You only pay for anything outside your policy's cover.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><h4>Can I port my existing health policy to TrustShield General?</h4><span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. Portability carries forward your waiting period credit for pre-existing conditions, provided you apply at least 45 days before your current policy's renewal date.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><h4>What happens if I miss a renewal date?</h4><span class="plus"></span></button>
+        <div class="faq-a"><p>Motor policies have a short grace window before third-party cover lapses legally. Health policies allow a 30-day grace period, though continuous coverage benefits like no-claim bonus and waiting-period credit are only preserved if you renew before expiry.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><h4>How do I check my claim status without calling support?</h4><span class="plus"></span></button>
+        <div class="faq-a"><p>Use the claim tracker on this page or in the app with your claim ID — status updates the moment your surveyor, verifier or settlement team makes progress, no need to wait on hold.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section style="padding-top:0;">
+  <div class="app-cta reveal">
+    <div>
+      <h2>Manage every policy from your pocket.</h2>
+      <p>File claims, track status, renew plans and store e-policies — the TrustSheild General app keeps your entire coverage in one place.</p>
+      <div class="store-btns">
+       
+      </div>
+    </div>
+    <svg width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#C89B3C" stroke-width="1" opacity="0.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="4"/></svg>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand">
+          <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+            <path d="M20 2 L36 9 V20 C36 30 29 36 20 38 C11 36 4 30 4 20 V9 Z" fill="#C89B3C" stroke="#FBF7F1" stroke-width="1"/>
+          </svg>
+          <span class="brand-text"><b style="color:var(--gold-soft)">TrustShield</b><span style="color:rgba(251,247,241,0.6)">General Insurance</span></span>
+        </a>
+        <p>A digital-first general insurance ecosystem covering motor, health, travel, home and business — from quote to claim, in one place.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#products">Car Insurance</a></li>
+          <li><a href="#products">Bike Insurance</a></li>
+          <li><a href="#products">Health Insurance</a></li>
+          <li><a href="#products">Travel Insurance</a></li>
+          <li><a href="#products">Home Insurance</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Network partners</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#claims">Track a claim</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#">Grievance redressal</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+<div>© 2026 TrustShield  General Insurance. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('shrink', window.scrollY > 40);
+  });
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.querySelector('.nav-links');
+  menuToggle.addEventListener('click', function(){
+    const isOpen = navLinks.style.display === 'flex';
+    navLinks.style.display = isOpen ? 'none' : 'flex';
+    navLinks.style.cssText += isOpen ? '' : 'position:absolute; top:100%; left:0; right:0; background:var(--cream); flex-direction:column; padding:20px 28px; border-bottom:1px solid var(--line); gap:16px;';
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(function(el){ io.observe(el); });
+
+
+  const TYPES = {
+    car:   {label:'Insured Declared Value', min:100000, max:2000000, step:10000, def:600000, base:900,  rate:0.0032, fmt:'currency'},
+    bike:  {label:'Insured Declared Value', min:20000,  max:300000,  step:5000,  def:90000,  base:250,  rate:0.0026, fmt:'currency'},
+    health:{label:'Sum Insured',            min:300000, max:10000000,step:100000,def:1000000,base:1800, rate:0.0044, fmt:'currency'},
+    travel:{label:'Trip Duration (days)',   min:3,      max:60,      step:1,     def:10,     base:180,  rate:14,    fmt:'days'},
+    home:  {label:'Property Value',         min:1000000,max:20000000,step:100000,def:5000000,base:600,  rate:0.00021,fmt:'currency'}
+  };
+  let currentType = 'car';
+  const chips = document.querySelectorAll('#typeChips .chip');
+  const slider = document.getElementById('quoteSlider');
+  const sliderLabel = document.getElementById('sliderLabel');
+  const sliderValue = document.getElementById('sliderValue');
+  const ageSlider = document.getElementById('ageSlider');
+  const ageValue = document.getElementById('ageValue');
+  const premiumOut = document.getElementById('premiumOut');
+
+  function fmtINR(n){ return Math.round(n).toLocaleString('en-IN'); }
+
+  function applyType(type){
+    currentType = type;
+    const t = TYPES[type];
+    sliderLabel.textContent = t.label;
+    slider.min = t.min; slider.max = t.max; slider.step = t.step; slider.value = t.def;
+    updateSliderDisplay();
+    computePremium();
+  }
+
+  function updateSliderDisplay(){
+    const t = TYPES[currentType];
+    const v = Number(slider.value);
+    sliderValue.textContent = t.fmt === 'days' ? (v + ' days') : ('₹' + fmtINR(v));
+  }
+
+  function computePremium(){
+    const t = TYPES[currentType];
+    const v = Number(slider.value);
+    const age = Number(ageSlider.value);
+    let ageFactor = 1;
+    if(currentType === 'health'){ ageFactor = 1 + Math.max(0, (age - 25) * 0.018); }
+    else { ageFactor = age < 25 ? 1.15 : (age > 55 ? 1.08 : 1); }
+    const premium = (t.base + v * t.rate) * ageFactor;
+    premiumOut.textContent = fmtINR(premium);
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      applyType(chip.dataset.type);
+    });
+  });
+  slider.addEventListener('input', function(){ updateSliderDisplay(); computePremium(); });
+  ageSlider.addEventListener('input', function(){ ageValue.textContent = ageSlider.value + ' yrs'; computePremium(); });
+  applyType('car');
+
+
+  const claimInput = document.getElementById('claimInput');
+  const trackBtn = document.getElementById('trackBtn');
+  const trackerBody = document.getElementById('trackerBody');
+  const STAGES = [
+    {title:'Claim registered', note:'Confirmation sent'},
+    {title:'Documents verified', note:'All documents accepted'},
+    {title:'Surveyor assigned', note:'Assessment in progress'},
+    {title:'Claim approved', note:'Awaiting fund transfer'},
+    {title:'Settled', note:'Amount credited'}
+  ];
+  function hashString(s){
+    let h = 0;
+    for(let i=0;i<s.length;i++){ h = (h * 31 + s.charCodeAt(i)) >>> 0; }
+    return h;
+  }
+  function trackClaim(id){
+    id = id.trim();
+    if(!id){
+      trackerBody.innerHTML = '<p class="tracker-empty">Enter a claim ID to see its status.</p>';
+      return;
+    }
+    const h = hashString(id.toUpperCase());
+    const stageIdx = h % STAGES.length; 
+    let html = '<div class="stepper">';
+    STAGES.forEach(function(s, i){
+      let cls = i < stageIdx ? 'done' : (i === stageIdx ? 'current' : '');
+      const daysAgo = (stageIdx - i) * 1;
+      const dateNote = i <= stageIdx ? (daysAgo === 0 ? 'Today' : daysAgo + ' day(s) ago') : 'Pending';
+      html += '<div class="step-row ' + cls + '"><div class="step-dot"></div><div class="step-body"><h5>' + s.title + '</h5><span>' + (i <= stageIdx ? s.note + ' · ' + dateNote : 'Not yet reached') + '</span></div></div>';
+    });
+    html += '</div>';
+    trackerBody.innerHTML = html;
+  }
+  trackBtn.addEventListener('click', function(){ trackClaim(claimInput.value); });
+  claimInput.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ trackClaim(claimInput.value); } });
+
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    if(item.classList.contains('open')){ a.style.maxHeight = a.scrollHeight + 'px'; }
+    q.addEventListener('click', function(){
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = 0;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
